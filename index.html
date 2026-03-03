@@ -59,6 +59,17 @@
     .pill{display:inline-flex;align-items:center;gap:8px;padding:5px 9px;border:1px solid var(--line);border-radius:999px;
       font-size:12px;color:#cfe0f5;background:rgba(255,255,255,.03)}
 
+    /* modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);z-index:9999}
+    .modal.show{display:flex}
+    .modal-card{width:min(680px, 95vw);border:1px solid var(--line);border-radius:18px;background:rgba(18,26,36,.96);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+    .modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+    .modal-title{font-size:13px;color:#d7e2f1;font-weight:700;letter-spacing:.2px}
+    .modal-x{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);border-radius:10px;padding:6px 10px;cursor:pointer}
+    .modal-body{padding:14px}
+    .modal-img{width:100%;height:auto;border-radius:14px;border:1px solid var(--line);display:block}
+    .modal-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:12px}
+
     footer{margin-top:28px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
     code{background:rgba(255,255,255,.05);padding:2px 6px;border-radius:8px}
   </style>
@@ -93,7 +104,7 @@
           </p>
 
           <div class="cta">
-            <a class="btn primary" id="t-download" href="https://p.etime.vip/https://github.com/leon7786/Yuris-Revenge/releases/download/v1/2.-.zip" target="_blank" rel="noopener noreferrer">下载（新窗口）</a>
+            <a class="btn primary" id="t-download" href="#" data-download-url="https://p.etime.vip/https://github.com/leon7786/Yuris-Revenge/releases/download/v1/2.-.zip">下载（新窗口）</a>
             <a class="btn" id="t-overview" href="#overview">快速概览</a>
             <a class="btn" id="t-sections" href="#sections">内容目录</a>
           </div>
@@ -153,10 +164,69 @@
     </footer>
   </div>
 
+  <!-- Download modal -->
+  <div class="modal" id="payModal" role="dialog" aria-modal="true" aria-label="payment">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div class="modal-title" id="t-modal-title">下载前提示</div>
+        <button class="modal-x" id="modalClose" type="button">×</button>
+      </div>
+      <div class="modal-body">
+        <img class="modal-img" src="https://a1.qqq3.vip:61112/tmp/p.png" alt="payment" />
+        <div class="modal-actions">
+          <button class="btn" id="modalCancel" type="button">关闭</button>
+          <a class="btn primary" id="modalPaid" href="#" target="_blank" rel="noopener noreferrer">我已付款</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    const I18N = {
+    // download modal wiring
+    const payModal = document.getElementById('payModal');
+    const downloadBtn = document.getElementById('t-download');
+    const modalClose = document.getElementById('modalClose');
+    const modalCancel = document.getElementById('modalCancel');
+    const modalPaid = document.getElementById('modalPaid');
+
+    let pendingDownloadUrl = null;
+
+    function openModal(downloadUrl){
+      pendingDownloadUrl = downloadUrl;
+      if (modalPaid && downloadUrl) modalPaid.href = downloadUrl;
+      payModal?.classList.add('show');
+    }
+
+    function closeModal(){
+      payModal?.classList.remove('show');
+      pendingDownloadUrl = null;
+      if (modalPaid) modalPaid.href = '#';
+    }
+
+    downloadBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      const url = downloadBtn.getAttribute('data-download-url');
+      openModal(url);
+    });
+
+    modalClose?.addEventListener('click', closeModal);
+    modalCancel?.addEventListener('click', closeModal);
+    payModal?.addEventListener('click', (e) => {
+      if (e.target === payModal) closeModal();
+    });
+
+    // When "I have paid" clicked, it opens new tab via <a target=_blank>
+    modalPaid?.addEventListener('click', () => {
+      setTimeout(closeModal, 200);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    const I18N = {"}
       "zh-Hant": {
         title: "尤里的復仇百科 | Yuri's Revenge Hub",
         brand: "尤里的復仇百科",
