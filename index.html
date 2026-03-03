@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="命令与征服：红色警戒2：尤里的复仇 — 资料、攻略、MOD、联机与工具" />
-  <title>尤里的复仇百科 | Yuri's Revenge Hub</title>
+  <meta name="description" content="Command & Conquer: Red Alert 2 — Yuri's Revenge hub" />
+  <title>Yuri's Revenge Hub</title>
   <style>
     :root{
       --bg:#0b0f14;--card:#121a24;--text:#e8eef6;--muted:#a9b6c6;
@@ -69,85 +69,266 @@
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
         <div>
-          <h1>尤里的复仇百科</h1>
-          <div class="sub">Command & Conquer · Red Alert 2 · Yuri's Revenge</div>
+          <h1 id="t-brand">尤里的复仇百科</h1>
+          <div class="sub" id="t-sub">Command & Conquer · Red Alert 2 · Yuri's Revenge</div>
         </div>
       </div>
-      <a class="pill" href="https://github.com/leon7786/Yuris-Revenge" target="_blank" rel="noopener noreferrer">GitHub 仓库</a>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end;">
+        <select id="lang" class="pill" aria-label="Language" style="background:rgba(255,255,255,.03); border:1px solid var(--line); padding:6px 10px;">
+          <option value="zh-Hant">繁體</option>
+          <option value="zh-Hans">简体</option>
+          <option value="en">English</option>
+        </select>
+        <a class="pill" href="https://github.com/leon7786/Yuris-Revenge" target="_blank" rel="noopener noreferrer" id="t-repo">GitHub 仓库</a>
+      </div>
     </header>
 
     <section class="hero">
       <div class="hero-grid">
         <div>
-          <h2>《命令与征服：红色警戒2：尤里的复仇》资料站</h2>
-          <p>
+          <h2 id="t-hero-title">《命令与征服：红色警戒2：尤里的复仇》资料站</h2>
+          <p id="t-hero-desc">
             《尤里的復仇》（<span style="color:#d7e2f1">Command &amp; Conquer: Yuri's Revenge</span>）是《红色警戒2》的正统资料片。
             本站把常用信息整理成「一页就够」的入口：简介、平台与发行信息、阵营特点速览，以及后续的战术/联机/工具/Mod 目录。
           </p>
 
           <div class="cta">
-            <a class="btn primary" href="https://p.etime.vip/https://github.com/leon7786/Yuris-Revenge/releases/download/v1/2.-.zip" target="_blank" rel="noopener noreferrer">下载（新窗口）</a>
-            <a class="btn" href="#overview">快速概览</a>
-            <a class="btn" href="#sections">内容目录</a>
+            <a class="btn primary" id="t-download" href="https://p.etime.vip/https://github.com/leon7786/Yuris-Revenge/releases/download/v1/2.-.zip" target="_blank" rel="noopener noreferrer">下载（新窗口）</a>
+            <a class="btn" id="t-overview" href="#overview">快速概览</a>
+            <a class="btn" id="t-sections" href="#sections">内容目录</a>
           </div>
 
-          <p style="margin-top:14px;font-size:12px;">
+          <p style="margin-top:14px;font-size:12px;" id="t-ref">
             资料参考：维基百科与 Steam 商店页（仅作介绍与索引；本站会逐步补齐更实用的对战/联机条目）。
           </p>
         </div>
 
         <aside class="side" id="overview">
-          <h3>基础信息（快速一眼）</h3>
+          <h3 id="t-overview-title">基础信息（快速一眼）</h3>
           <ul>
-            <li><strong>类型</strong>：即时战略（RTS）</li>
-            <li><strong>平台</strong>：Windows</li>
-            <li><strong>开发商</strong>：Westwood Studios</li>
-            <li><strong>发行商</strong>：Electronic Arts（EA）</li>
-            <li><strong>模式</strong>：单人 / 多人</li>
-            <li><strong>剧情位置</strong>：承接《红色警戒2》盟军胜利线</li>
+            <li><strong id="t-k-type">类型</strong><span id="t-v-type">：即时战略（RTS）</span></li>
+            <li><strong id="t-k-platform">平台</strong><span id="t-v-platform">：Windows</span></li>
+            <li><strong id="t-k-dev">开发商</strong><span id="t-v-dev">：Westwood Studios</span></li>
+            <li><strong id="t-k-pub">发行商</strong><span id="t-v-pub">：Electronic Arts（EA）</span></li>
+            <li><strong id="t-k-mode">模式</strong><span id="t-v-mode">：单人 / 多人</span></li>
+            <li><strong id="t-k-story">剧情位置</strong><span id="t-v-story">：承接《红色警戒2》盟军胜利线</span></li>
           </ul>
         </aside>
       </div>
 
       <div class="grid" style="margin-top:14px; grid-template-columns: repeat(3, 1fr);">
         <div class="card">
-          <h3>故事简介</h3>
-          <p>尤里利用心灵控制科技企图统治世界；盟军与苏军在对抗与合作之间推进战役。</p>
+          <h3 id="t-story-title">故事简介</h3>
+          <p id="t-story-desc">尤里利用心灵控制科技企图统治世界；盟军与苏军在对抗与合作之间推进战役。</p>
         </div>
         <div class="card">
-          <h3>阵营速览</h3>
-          <p><strong>盟军</strong>：全能体系、科技感强；<strong>苏军</strong>：装甲火力凶猛；<strong>尤里</strong>：心灵控制与奇特科技。</p>
+          <h3 id="t-factions-title">阵营速览</h3>
+          <p id="t-factions-desc"><strong>盟军</strong>：全能体系、科技感强；<strong>苏军</strong>：装甲火力凶猛；<strong>尤里</strong>：心灵控制与奇特科技。</p>
         </div>
         <div class="card">
-          <h3>为什么值得玩</h3>
-          <p>超过 80 种单位/建筑、经典战役与对战节奏，至今仍有活跃玩家与 Mod 社区。</p>
+          <h3 id="t-why-title">为什么值得玩</h3>
+          <p id="t-why-desc">超过 80 种单位/建筑、经典战役与对战节奏，至今仍有活跃玩家与 Mod 社区。</p>
         </div>
       </div>
 
       <div id="sections" class="grid" style="margin-top:14px;">
         <div class="card">
-          <h3>资料库（建设中）</h3>
-          <p>阵营、单位、建筑、科技树与关键机制：做成可检索的条目页。</p>
+          <h3 id="t-lib-title">资料库（建设中）</h3>
+          <p id="t-lib-desc">阵营、单位、建筑、科技树与关键机制：做成可检索的条目页。</p>
         </div>
         <div class="card">
-          <h3>战术与对战（建设中）</h3>
-          <p>开局到中后期：常见套路、反制思路、经典对局拆解。</p>
+          <h3 id="t-meta-title">战术与对战（建设中）</h3>
+          <p id="t-meta-desc">开局到中后期：常见套路、反制思路、经典对局拆解。</p>
         </div>
         <div class="card">
-          <h3>联机与工具（建设中）</h3>
-          <p>联机工具、兼容性、掉线与黑屏等问题排查，给可复现步骤。</p>
+          <h3 id="t-mp-title">联机与工具（建设中）</h3>
+          <p id="t-mp-desc">联机工具、兼容性、掉线与黑屏等问题排查，给可复现步骤。</p>
         </div>
       </div>
     </section>
 
     <footer>
-      <div>© <span id="y"></span> Yuri's Revenge Hub · 由 GitHub Pages 托管</div>
-      <div>下载按钮跳转至：<code>store.steampowered.com/app/2229850</code></div>
+      <div>© <span id="y"></span> <span id="t-footer">Yuri's Revenge Hub · 由 GitHub Pages 托管</span></div>
+      <div><span id="t-footer2">下载按钮跳转至：</span><code id="t-footer-code">github.com/leon7786/Yuris-Revenge/releases</code></div>
     </footer>
   </div>
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    const I18N = {
+      "zh-Hant": {
+        title: "尤里的復仇百科 | Yuri's Revenge Hub",
+        brand: "尤里的復仇百科",
+        repo: "GitHub 倉庫",
+        heroTitle: "《命令與征服：紅色警戒2：尤里的復仇》資料站",
+        heroDesc: "《尤里的復仇》（Command & Conquer: Yuri's Revenge）是《紅色警戒2》的正統資料片。本站把常用資訊整理成「一頁就夠」的入口：簡介、平台與發行資訊、陣營特點速覽，以及後續的戰術/聯機/工具/Mod 目錄。",
+        download: "下載（新視窗）",
+        overview: "快速概覽",
+        sections: "內容目錄",
+        ref: "資料參考：維基百科與 Steam 商店頁（僅作介紹與索引；本站會逐步補齊更實用的對戰/聯機條目）。",
+        ovTitle: "基礎資訊（快速一眼）",
+        kType: "類型", vType: "：即時戰略（RTS）",
+        kPlatform: "平台", vPlatform: "：Windows",
+        kDev: "開發商", vDev: "：Westwood Studios",
+        kPub: "發行商", vPub: "：Electronic Arts（EA）",
+        kMode: "模式", vMode: "：單人 / 多人",
+        kStory: "劇情位置", vStory: "：承接《紅色警戒2》盟軍勝利線",
+        storyTitle: "故事簡介",
+        storyDesc: "尤里利用心靈控制科技企圖統治世界；盟軍與蘇軍在對抗與合作之間推進戰役。",
+        factionsTitle: "陣營速覽",
+        factionsDesc: "<strong>盟軍</strong>：全能體系、科技感強；<strong>蘇軍</strong>：裝甲火力兇猛；<strong>尤里</strong>：心靈控制與奇特科技。",
+        whyTitle: "為什麼值得玩",
+        whyDesc: "超過 80 種單位/建築、經典戰役與對戰節奏，至今仍有活躍玩家與 Mod 社群。",
+        libTitle: "資料庫（建設中）",
+        libDesc: "陣營、單位、建築、科技樹與關鍵機制：做成可檢索的條目頁。",
+        metaTitle: "戰術與對戰（建設中）",
+        metaDesc: "開局到中後期：常見套路、反制思路、經典對局拆解。",
+        mpTitle: "聯機與工具（建設中）",
+        mpDesc: "聯機工具、相容性、掉線與黑屏等問題排查，給可復現步驟。",
+        footer: "Yuri's Revenge Hub · 由 GitHub Pages 託管",
+        footer2: "下載按鈕跳轉至：",
+        footerCode: "github.com/leon7786/Yuris-Revenge/releases"
+      },
+      "zh-Hans": {
+        title: "尤里的复仇百科 | Yuri's Revenge Hub",
+        brand: "尤里的复仇百科",
+        repo: "GitHub 仓库",
+        heroTitle: "《命令与征服：红色警戒2：尤里的复仇》资料站",
+        heroDesc: "《尤里的复仇》（Command & Conquer: Yuri's Revenge）是《红色警戒2》的正统资料片。本站把常用信息整理成「一页就够」的入口：简介、平台与发行信息、阵营特点速览，以及后续的战术/联机/工具/Mod 目录。",
+        download: "下载（新窗口）",
+        overview: "快速概览",
+        sections: "内容目录",
+        ref: "资料参考：维基百科与 Steam 商店页（仅作介绍与索引；本站会逐步补齐更实用的对战/联机条目）。",
+        ovTitle: "基础信息（快速一眼）",
+        kType: "类型", vType: "：即时战略（RTS）",
+        kPlatform: "平台", vPlatform: "：Windows",
+        kDev: "开发商", vDev: "：Westwood Studios",
+        kPub: "发行商", vPub: "：Electronic Arts（EA）",
+        kMode: "模式", vMode: "：单人 / 多人",
+        kStory: "剧情位置", vStory: "：承接《红色警戒2》盟军胜利线",
+        storyTitle: "故事简介",
+        storyDesc: "尤里利用心灵控制科技企图统治世界；盟军与苏军在对抗与合作之间推进战役。",
+        factionsTitle: "阵营速览",
+        factionsDesc: "<strong>盟军</strong>：全能体系、科技感强；<strong>苏军</strong>：装甲火力凶猛；<strong>尤里</strong>：心灵控制与奇特科技。",
+        whyTitle: "为什么值得玩",
+        whyDesc: "超过 80 种单位/建筑、经典战役与对战节奏，至今仍有活跃玩家与 Mod 社区。",
+        libTitle: "资料库（建设中）",
+        libDesc: "阵营、单位、建筑、科技树与关键机制：做成可检索的条目页。",
+        metaTitle: "战术与对战（建设中）",
+        metaDesc: "开局到中后期：常见套路、反制思路、经典对局拆解。",
+        mpTitle: "联机与工具（建设中）",
+        mpDesc: "联机工具、兼容性、掉线与黑屏等问题排查，给可复现步骤。",
+        footer: "Yuri's Revenge Hub · 由 GitHub Pages 托管",
+        footer2: "下载按钮跳转至：",
+        footerCode: "github.com/leon7786/Yuris-Revenge/releases"
+      },
+      "en": {
+        title: "Yuri's Revenge Hub",
+        brand: "Yuri's Revenge Hub",
+        repo: "GitHub Repo",
+        heroTitle: "Command & Conquer: Yuri's Revenge — Hub",
+        heroDesc: "Yuri's Revenge is the official expansion pack for Red Alert 2. This site is a one-page entry point for the essentials: overview, platform & release info, faction snapshots, and (soon) tactics, multiplayer tools, and mods.",
+        download: "Download (new tab)",
+        overview: "Quick overview",
+        sections: "Contents",
+        ref: "References: Wikipedia & Steam store page (intro + index only; practical PvP/multiplayer notes will be added).",
+        ovTitle: "Quick facts",
+        kType: "Genre", vType: ": Real-time strategy (RTS)",
+        kPlatform: "Platform", vPlatform: ": Windows",
+        kDev: "Developer", vDev: ": Westwood Studios",
+        kPub: "Publisher", vPub: ": Electronic Arts (EA)",
+        kMode: "Modes", vMode: ": Single-player / Multiplayer",
+        kStory: "Story", vStory: ": Set after Red Alert 2 (Allies victory) ",
+        storyTitle: "Story",
+        storyDesc: "Yuri aims to conquer the world using psychic mind control; the Allies and Soviets fight, and sometimes cooperate, across campaigns.",
+        factionsTitle: "Factions",
+        factionsDesc: "<strong>Allies</strong>: versatile tech; <strong>Soviets</strong>: heavy armor & firepower; <strong>Yuri</strong>: mind control and weird science.",
+        whyTitle: "Why it still rules",
+        whyDesc: "80+ units/buildings, iconic campaigns, and a long-lasting competitive + modding community.",
+        libTitle: "Library (WIP)",
+        libDesc: "Factions, units, buildings, tech tree, and key mechanics — structured pages.",
+        metaTitle: "Tactics (WIP)",
+        metaDesc: "Openings, mid-game plans, matchup notes, and counters.",
+        mpTitle: "Multiplayer & tools (WIP)",
+        mpDesc: "How to play online, compatibility fixes, and troubleshooting steps.",
+        footer: "Yuri's Revenge Hub · Hosted on GitHub Pages",
+        footer2: "Download button goes to:",
+        footerCode: "github.com/leon7786/Yuris-Revenge/releases"
+      }
+    };
+
+    function applyLang(lang){
+      const t = I18N[lang] || I18N['zh-Hant'];
+      document.documentElement.lang = lang;
+      document.title = t.title;
+      const setText = (id, v) => { const el=document.getElementById(id); if(el) el.textContent=v; };
+      const setHTML = (id, v) => { const el=document.getElementById(id); if(el) el.innerHTML=v; };
+
+      setText('t-brand', t.brand);
+      setText('t-sub', 'Command & Conquer · Red Alert 2 · Yuri\'s Revenge');
+      setText('t-repo', t.repo);
+
+      setText('t-hero-title', t.heroTitle);
+      setText('t-hero-desc', t.heroDesc);
+      setText('t-download', t.download);
+      setText('t-overview', t.overview);
+      setText('t-sections', t.sections);
+      setText('t-ref', t.ref);
+
+      setText('t-overview-title', t.ovTitle);
+      setText('t-k-type', t.kType); setText('t-v-type', t.vType);
+      setText('t-k-platform', t.kPlatform); setText('t-v-platform', t.vPlatform);
+      setText('t-k-dev', t.kDev); setText('t-v-dev', t.vDev);
+      setText('t-k-pub', t.kPub); setText('t-v-pub', t.vPub);
+      setText('t-k-mode', t.kMode); setText('t-v-mode', t.vMode);
+      setText('t-k-story', t.kStory); setText('t-v-story', t.vStory);
+
+      setText('t-story-title', t.storyTitle);
+      setText('t-story-desc', t.storyDesc);
+      setText('t-factions-title', t.factionsTitle);
+      setHTML('t-factions-desc', t.factionsDesc);
+      setText('t-why-title', t.whyTitle);
+      setText('t-why-desc', t.whyDesc);
+
+      setText('t-lib-title', t.libTitle);
+      setText('t-lib-desc', t.libDesc);
+      setText('t-meta-title', t.metaTitle);
+      setText('t-meta-desc', t.metaDesc);
+      setText('t-mp-title', t.mpTitle);
+      setText('t-mp-desc', t.mpDesc);
+
+      setText('t-footer', t.footer);
+      setText('t-footer2', t.footer2);
+      setText('t-footer-code', t.footerCode);
+    }
+
+    function getInitialLang(){
+      const url = new URL(window.location.href);
+      const q = url.searchParams.get('lang');
+      if (q && I18N[q]) return q;
+      const saved = localStorage.getItem('yr_lang');
+      if (saved && I18N[saved]) return saved;
+      const nav = (navigator.language || '').toLowerCase();
+      if (nav.startsWith('zh')) {
+        // rough: zh-TW/HK/MO -> zh-Hant; others -> zh-Hans
+        if (nav.includes('tw') || nav.includes('hk') || nav.includes('mo') || nav.includes('hant')) return 'zh-Hant';
+        return 'zh-Hans';
+      }
+      return 'en';
+    }
+
+    const sel = document.getElementById('lang');
+    const initial = getInitialLang();
+    if (sel) {
+      sel.value = initial;
+      sel.addEventListener('change', () => {
+        const v = sel.value;
+        localStorage.setItem('yr_lang', v);
+        applyLang(v);
+      });
+    }
+    applyLang(initial);
   </script>
 </body>
 </html>
