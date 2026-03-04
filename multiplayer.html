@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>联机与工具 | 尤里的复仇百科</title>
+  <meta name="description" content="Yuri's Revenge multiplayer tools and reproducible troubleshooting." />
+  <style>
+    :root{--bg:#0b0f14;--card:#121a24;--text:#e8eef6;--muted:#a9b6c6;--accent:#ff375f;--line:rgba(255,255,255,.08)}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans","PingFang SC","Microsoft YaHei";
+      background:radial-gradient(1200px 600px at 20% 0%, rgba(255,55,95,.18), transparent 55%), var(--bg);
+      color:var(--text);
+    }
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 70px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    h1{font-size:18px;margin:0}
+    p{margin:6px 0 0;color:var(--muted);line-height:1.65}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;
+      font-size:12px;color:#cfe0f5;background:rgba(255,255,255,.03)}
+
+    .toolbar{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    input,select{background:rgba(255,255,255,.03); border:1px solid var(--line); color:var(--text); border-radius:12px; padding:10px 12px; outline:none}
+    input{min-width:min(520px, 90vw)}
+
+    .grid{margin-top:14px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+
+    .card{border:1px solid var(--line);border-radius:16px;background:rgba(18,26,36,.65);padding:14px}
+    .card h3{margin:0 0 8px;font-size:14px}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .tag{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 8px;background:rgba(255,255,255,.02)}
+    .steps{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.8}
+    .steps ol{margin:6px 0 0; padding-left:18px}
+    .empty{margin-top:14px;color:var(--muted);font-size:13px}
+
+    footer{margin-top:22px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    code{background:rgba(255,255,255,.05);padding:2px 6px;border-radius:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>联机与工具（可复现排障）</h1>
+        <p>目标：遇到掉线/黑屏/无法联机，不靠“玄学重装”，而是按步骤定位到<strong>可复现原因</strong>。</p>
+      </div>
+      <a class="pill" href="./">← 返回首页</a>
+    </header>
+
+    <div class="toolbar">
+      <input id="q" placeholder="搜索：黑屏 / 进不去房间 / 掉线 / 兼容性 / 分辨率 / ddraw" />
+      <select id="type">
+        <option value="">全部</option>
+        <option value="tool">工具</option>
+        <option value="fix">排障</option>
+        <option value="compat">兼容性</option>
+      </select>
+      <span class="pill" id="count">0 条</span>
+    </div>
+
+    <div id="list" class="grid"></div>
+    <div id="empty" class="empty" style="display:none">没有匹配条目。换关键词试试。</div>
+
+    <footer>
+      <div>你告诉我你用的是哪套联机平台/版本（原版/整合版/Steam），我就把对应排障路径补全。</div>
+      <div>© <span id="y"></span> Yuri's Revenge Hub</div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    const ITEMS = [
+      {
+        id:'cncnet', type:'tool', title:'联机工具：CnCNet（推荐入口）',
+        tags:['工具','对战','大厅'],
+        summary:'多数玩家用 CnCNet 进行大厅匹配与联机。优点是整合度高；缺点是版本/Mod/地图需要一致。',
+        steps:[
+          '确认你使用的游戏本体（原版/整合包/Steam）。',
+          '安装/启动 CnCNet 后，先在单机/遭遇战里测试能否正常进入游戏。',
+          '联机前确保双方：版本一致、地图一致、Mod/扩展一致。'
+        ]
+      },
+      {
+        id:'ddraw', type:'compat', title:'兼容性：ddraw / 渲染模式选择',
+        tags:['兼容性','黑屏','花屏'],
+        summary:'很多“黑屏/切出崩溃/花屏”本质是渲染层与显卡/系统不兼容。换 ddraw 方案往往立刻解决。',
+        steps:[
+          '先记录现象：是否只有全屏黑？窗口模式正常吗？切出会崩吗？',
+          '尝试切换：窗口/无边框；或更换 ddraw 版本/渲染器配置。',
+          '如果是高分屏：优先用无边框窗口 + 合理缩放。'
+        ]
+      },
+      {
+        id:'black-screen', type:'fix', title:'排障：启动黑屏（给可复现步骤）',
+        tags:['排障','黑屏','启动'],
+        summary:'先把“黑屏”拆成：能否听到声音/能否Alt+Tab/是否仅画面不出。按分支定位更快。',
+        steps:[
+          '步骤1：改为窗口模式启动（如果能进，说明全屏/分辨率/渲染层问题居多）。',
+          '步骤2：把分辨率改为常见值（例如 1024×768 / 1280×720）并关闭奇怪缩放。',
+          '步骤3：检查是否有叠加层（录屏/显卡面板/输入法覆盖）导致冲突，逐个关闭复现。'
+        ]
+      },
+      {
+        id:'disconnect', type:'fix', title:'排障：联机掉线/不同步（desync）',
+        tags:['排障','掉线','同步'],
+        summary:'掉线不一定是网络：版本不一致、地图/Mod 不一致、或某些补丁差异也会触发。',
+        steps:[
+          '确认双方版本号、地图文件 hash、Mod/插件完全一致（最常见原因）。',
+          '同一局多次复现：记录在第几分钟/什么操作后触发（用于定位触发器）。',
+          '关闭加速器/代理/防火墙的“智能拦截”，必要时白名单放行游戏与联机工具。'
+        ]
+      }
+    ];
+
+    const $q = document.getElementById('q');
+    const $type = document.getElementById('type');
+    const $list = document.getElementById('list');
+    const $empty = document.getElementById('empty');
+    const $count = document.getElementById('count');
+
+    function norm(s){ return (s||'').toString().trim().toLowerCase(); }
+    function typeName(s){ return ({tool:'工具', fix:'排障', compat:'兼容性'})[s] || s; }
+
+    function matches(it, q, type){
+      if (type && it.type !== type) return false;
+      if (!q) return true;
+      const hay=[it.title,it.summary,...(it.tags||[]),...(it.steps||[])].join(' ');
+      return norm(hay).includes(norm(q));
+    }
+
+    function render(){
+      const q=$q.value;
+      const tp=$type.value;
+      const items=ITEMS.filter(it=>matches(it,q,tp));
+      $count.textContent=`${items.length} 条`;
+      $list.innerHTML='';
+      $empty.style.display = items.length ? 'none' : 'block';
+
+      for(const it of items){
+        const div=document.createElement('div');
+        div.className='card';
+        div.innerHTML=`
+          <div class="pill" style="margin-bottom:10px">${typeName(it.type)}</div>
+          <h3>${it.title}</h3>
+          <p>${it.summary}</p>
+          <div class="meta">${(it.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+          <div class="steps">
+            <div><strong>可复现排查步骤</strong></div>
+            <ol>${(it.steps||[]).map(s=>`<li>${s}</li>`).join('')}</ol>
+          </div>
+        `;
+        $list.appendChild(div);
+      }
+    }
+
+    $q.addEventListener('input', render);
+    $type.addEventListener('change', render);
+    render();
+  </script>
+</body>
+</html>

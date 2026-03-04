@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>资料库 | 尤里的复仇百科</title>
+  <meta name="description" content="Yuri's Revenge library: factions, units, buildings, tech, mechanics." />
+  <style>
+    :root{--bg:#0b0f14;--card:#121a24;--text:#e8eef6;--muted:#a9b6c6;--accent:#ff375f;--line:rgba(255,255,255,.08)}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans","PingFang SC","Microsoft YaHei";
+      background:radial-gradient(1200px 600px at 20% 0%, rgba(255,55,95,.18), transparent 55%), var(--bg);
+      color:var(--text);
+    }
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 70px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .title{display:flex;flex-direction:column;gap:4px}
+    h1{font-size:18px;margin:0}
+    p{margin:0;color:var(--muted);line-height:1.65}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;
+      font-size:12px;color:#cfe0f5;background:rgba(255,255,255,.03)}
+
+    .toolbar{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    input,select{background:rgba(255,255,255,.03); border:1px solid var(--line); color:var(--text); border-radius:12px; padding:10px 12px; outline:none}
+    input{min-width:min(520px, 90vw)}
+    .grid{margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+
+    .card{border:1px solid var(--line);border-radius:16px;background:rgba(18,26,36,.65);padding:14px}
+    .card h3{margin:0 0 8px;font-size:14px}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .tag{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 8px;background:rgba(255,255,255,.02)}
+    .kv{margin-top:8px;color:var(--muted);font-size:12px;line-height:1.7}
+    .empty{margin-top:14px;color:var(--muted);font-size:13px}
+
+    footer{margin-top:22px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    code{background:rgba(255,255,255,.05);padding:2px 6px;border-radius:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="title">
+        <h1>资料库（可检索条目）</h1>
+        <p>先放“够用的骨架”：用 <code>搜索</code> + <code>分类</code> 快速定位。后续你要补哪条，我就按同样格式追加。</p>
+      </div>
+      <a class="pill" href="./">← 返回首页</a>
+    </header>
+
+    <div class="toolbar">
+      <input id="q" placeholder="搜索：比如 盟军 / 磁暴 / 心灵控制 / 天启 / 兵营 / 开局" />
+      <select id="cat">
+        <option value="">全部分类</option>
+        <option value="faction">阵营</option>
+        <option value="unit">单位</option>
+        <option value="building">建筑</option>
+        <option value="mechanic">机制</option>
+        <option value="tech">科技/升级</option>
+      </select>
+      <span class="pill" id="count">0 条</span>
+    </div>
+
+    <div id="list" class="grid"></div>
+    <div id="empty" class="empty" style="display:none">没有匹配条目。可换关键词或切到“全部分类”。</div>
+
+    <footer>
+      <div>提示：条目数据在页面内置的 <code>ENTRIES</code> 里，直接复制一条照格式加就行。</div>
+      <div>© <span id="y"></span> Yuri's Revenge Hub</div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // 可检索条目：先给你一批“常用骨架”，后续继续扩。
+    const ENTRIES = [
+      // Factions
+      { id: 'allies', cat:'faction', title:'盟军（Allies）', aka:['盟军','Allies'], tags:['多功能','机动','科技'], summary:'整体均衡，强调机动与多用途单位；常见打法围绕多线骚扰与精细操作。', detail:'核心思路：靠多功能单位组合（防空/反装甲/反步兵）+ 机动性建立优势。' },
+      { id: 'soviet', cat:'faction', title:'苏军（Soviets）', aka:['苏军','Soviets'], tags:['装甲','火力','推进'], summary:'装甲和正面火力强，擅长“压线推进”；中后期重单位压制感明显。', detail:'核心思路：稳固经济后，以重装甲与火力点逐步推进；注意反制空军与骚扰。' },
+      { id: 'yuri', cat:'faction', title:'尤里（Yuri）', aka:['尤里','Yuri'], tags:['心灵控制','奇招','控场'], summary:'以心控与奇特科技取胜，擅长打乱对手节奏；但通常更吃运营与时机。', detail:'核心思路：通过控制/限制（心控、瘫痪、反应堆限制等）让对手“打不出体系”。' },
+
+      // Mechanics
+      { id: 'mind-control', cat:'mechanic', title:'心灵控制（Mind Control）', aka:['心控','mind control','精神控制'], tags:['尤里','机制'], summary:'把对方单位变成己方；典型反制是分散编队、优先点杀心控源、利用免控/一次性单位。', detail:'要点：心控通常怕“斩首”和“多线”；被控单位的价值越高，越要避免单点暴露。' },
+      { id: 'power-management', cat:'mechanic', title:'电力管理（Power）', aka:['电力','断电','Power'], tags:['机制','运营'], summary:'断电会导致部分建筑停摆/防御失效，属于高收益骚扰目标。', detail:'实战：早期优先防“断电偷家”；中期可以用空军/快车切发电，迫使对手回防。' },
+
+      // Tech
+      { id: 'tech-tier', cat:'tech', title:'科技等级（Tech Tier）', aka:['科技','科技树','tech'], tags:['运营','节奏'], summary:'“升科技”的本质是把资源换成更强单位选择；升太快会被早期压力惩罚，升太慢会被中后期压制。', detail:'建议：把升科技当作“时间窗口”决策——看对手兵种与地图，决定是否跳科技或先稳住。' },
+
+      // Units (examples)
+      { id: 'apocalypse', cat:'unit', title:'天启坦克（Apocalypse Tank）', aka:['天启','天启坦克'], tags:['苏军','重装甲'], summary:'典型重装甲核心单位；推进能力强，但机动较差，怕风筝与多线拆家。', detail:'对策：拉扯/风筝、切经济、用高机动单位打侧翼；正面硬碰通常吃亏。' },
+      { id: 'mirage', cat:'unit', title:'幻影坦克（Mirage Tank）', aka:['幻影','幻影坦克'], tags:['盟军','伏击'], summary:'伏击与防推进常用单位；优势在信息差与站位，劣势是被侦察后容易被集火处理。', detail:'要点：别把幻影当“无敌”，它更像“区域拒止/伏击”工具。' },
+
+      // Buildings (examples)
+      { id: 'barracks', cat:'building', title:'兵营（Barracks）', aka:['兵营','Barracks'], tags:['基础建筑','节奏'], summary:'开局最核心的生产建筑之一；决定你的侦察、抢资源点和早期防守。', detail:'建议：先把“侦察”当成必做任务——知道对手在干什么，才谈反制。' },
+      { id: 'war-factory', cat:'building', title:'战车工厂（War Factory）', aka:['战车工厂','车厂','War Factory'], tags:['核心建筑','经济'], summary:'陆军主力产线；车厂晚了通常意味着对方可以先拿地图控制。', detail:'常见思路：用车厂建立地图控制，再用控制换经济/科技。' },
+    ];
+
+    const $q = document.getElementById('q');
+    const $cat = document.getElementById('cat');
+    const $list = document.getElementById('list');
+    const $empty = document.getElementById('empty');
+    const $count = document.getElementById('count');
+
+    function norm(s){
+      return (s||'').toString().trim().toLowerCase();
+    }
+
+    function matches(entry, q, cat){
+      if (cat && entry.cat !== cat) return false;
+      if (!q) return true;
+      const hay = [entry.title, entry.summary, entry.detail, ...(entry.aka||[]), ...(entry.tags||[])].join(' ');
+      return norm(hay).includes(norm(q));
+    }
+
+    function catName(c){
+      return ({faction:'阵营', unit:'单位', building:'建筑', mechanic:'机制', tech:'科技/升级'})[c] || c;
+    }
+
+    function render(){
+      const q = $q.value;
+      const cat = $cat.value;
+      const items = ENTRIES.filter(e => matches(e, q, cat));
+      $count.textContent = `${items.length} 条`;
+      $list.innerHTML = '';
+      $empty.style.display = items.length ? 'none' : 'block';
+
+      for (const e of items){
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `
+          <div class="pill" style="margin-bottom:10px">${catName(e.cat)}</div>
+          <h3>${e.title}</h3>
+          <p>${e.summary}</p>
+          <div class="meta">${(e.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+          <div class="kv">${e.detail ? `<div><strong>要点：</strong>${e.detail}</div>` : ''}</div>
+        `;
+        $list.appendChild(div);
+      }
+    }
+
+    $q.addEventListener('input', render);
+    $cat.addEventListener('change', render);
+    render();
+  </script>
+</body>
+</html>

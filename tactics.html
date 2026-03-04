@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>战术与对战 | 尤里的复仇百科</title>
+  <meta name="description" content="Yuri's Revenge tactics: openings, mid/late game plans, matchup counters." />
+  <style>
+    :root{--bg:#0b0f14;--card:#121a24;--text:#e8eef6;--muted:#a9b6c6;--accent:#ff375f;--line:rgba(255,255,255,.08)}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans","PingFang SC","Microsoft YaHei";
+      background:radial-gradient(1200px 600px at 80% 0%, rgba(77,210,255,.14), transparent 55%), var(--bg);
+      color:var(--text);
+    }
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 70px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    h1{font-size:18px;margin:0}
+    p{margin:6px 0 0;color:var(--muted);line-height:1.65}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;
+      font-size:12px;color:#cfe0f5;background:rgba(255,255,255,.03)}
+
+    .toolbar{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    input,select{background:rgba(255,255,255,.03); border:1px solid var(--line); color:var(--text); border-radius:12px; padding:10px 12px; outline:none}
+    input{min-width:min(520px, 90vw)}
+    .grid{margin-top:14px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+
+    .card{border:1px solid var(--line);border-radius:16px;background:rgba(18,26,36,.65);padding:14px}
+    .card h3{margin:0 0 8px;font-size:14px}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .tag{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 8px;background:rgba(255,255,255,.02)}
+    .steps{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.75}
+    .steps ol{margin:6px 0 0; padding-left:18px}
+    .empty{margin-top:14px;color:var(--muted);font-size:13px}
+
+    footer{margin-top:22px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    code{background:rgba(255,255,255,.05);padding:2px 6px;border-radius:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>战术与对战（可检索套路/反制）</h1>
+        <p>这里不是“百科式堆字”，而是能直接拿来打：每条都有<strong>触发条件</strong>、<strong>执行步骤</strong>、<strong>常见反制</strong>。</p>
+      </div>
+      <a class="pill" href="./">← 返回首页</a>
+    </header>
+
+    <div class="toolbar">
+      <input id="q" placeholder="搜索：比如 双矿开 / 速科技 / 空军骚扰 / 反心控 / 天启推进" />
+      <select id="stage">
+        <option value="">全部阶段</option>
+        <option value="open">开局</option>
+        <option value="mid">中期</option>
+        <option value="late">后期</option>
+      </select>
+      <span class="pill" id="count">0 条</span>
+    </div>
+
+    <div id="list" class="grid"></div>
+    <div id="empty" class="empty" style="display:none">没有匹配条目。换关键词试试。</div>
+
+    <footer>
+      <div>建议：你把常玩的阵营/对局发我，我就优先把那部分补齐并做成更细的“对局拆解”。</div>
+      <div>© <span id="y"></span> Yuri's Revenge Hub</div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    const TACTICS = [
+      {
+        id:'scout-first', stage:'open', title:'开局必做：侦察优先（任何阵营通用）',
+        tags:['开局','通用','反套路'],
+        summary:'你不需要“猜”，你需要信息：看对方是否双矿、是否速车厂、是否跳科技、是否准备空军/偷电。',
+        steps:[
+          '第一时间派出低成本单位/狗去确认对方起手建筑。',
+          '看到“少兵多工/早电厂/早科技”= 有跳科技或贪经济倾向。',
+          '看到“早兵营+前压”= 准备防守/卡口，别盲目跳科技。'
+        ],
+        counters:['对手反侦察：补第二条侦察路线，或用更快单位绕侧。']
+      },
+      {
+        id:'economy-window', stage:'open', title:'经济窗口：双矿/二矿的风险与收益',
+        tags:['开局','运营','节奏'],
+        summary:'二矿=更强中期，但也意味着早期兵力不足。关键不是“能不能双矿”，而是“对手给不给你双矿”。',
+        steps:[
+          '确认地图与路口：有无天然卡口？是否容易被快车切经济？',
+          '侦察对手：如果对手早车厂/早前压，二矿要更谨慎。',
+          '双矿成功的标志：你没掉关键采矿车/没被断电，且车厂能按时落地。'
+        ],
+        counters:['对手快攻：优先保采矿车，必要时牺牲科技/扩张换生存。']
+      },
+      {
+        id:'anti-mc', stage:'mid', title:'反心控：分散、斩首、一次性单位',
+        tags:['中期','尤里对局','反制'],
+        summary:'对心控最怕的是“高价值单点被控”。你要做的是：不给对方“一个按钮赚翻”。',
+        steps:[
+          '编队分散：别把重单位扎堆一团。',
+          '优先点杀心控源：看到心控单位先集火它，而不是被控单位。',
+          '多线牵制：逼对手心控去防守而不是去控你主力。'
+        ],
+        counters:['对手混合控场：用更快的单位切后排，或提前铺防御/反隐。']
+      },
+      {
+        id:'heavy-push', stage:'late', title:'重装甲推进：用“火力点+视野”滚雪球',
+        tags:['后期','推进','地图控制'],
+        summary:'后期推进不是无脑 A 上去。你需要把火力集中在可控区域，同时用视野与反骚扰保证经济不停摆。',
+        steps:[
+          '先把视野铺出来：别让对手用信息差抓你侧翼。',
+          '推进时保持“可撤退路线”：别把重单位卡在狭窄地形。',
+          '推进前先解决对方的骚扰点：机场/传送/快车道入口。'
+        ],
+        counters:['对手风筝：你需要更快的侧翼单位/空军封锁，而不是继续硬追。']
+      }
+    ];
+
+    const $q = document.getElementById('q');
+    const $stage = document.getElementById('stage');
+    const $list = document.getElementById('list');
+    const $empty = document.getElementById('empty');
+    const $count = document.getElementById('count');
+
+    function norm(s){ return (s||'').toString().trim().toLowerCase(); }
+    function stageName(s){ return ({open:'开局', mid:'中期', late:'后期'})[s] || s; }
+
+    function matches(t, q, stage){
+      if (stage && t.stage !== stage) return false;
+      if (!q) return true;
+      const hay = [t.title, t.summary, ...(t.tags||[]), ...(t.steps||[]), ...(t.counters||[])].join(' ');
+      return norm(hay).includes(norm(q));
+    }
+
+    function render(){
+      const q = $q.value;
+      const st = $stage.value;
+      const items = TACTICS.filter(t => matches(t, q, st));
+      $count.textContent = `${items.length} 条`;
+      $list.innerHTML='';
+      $empty.style.display = items.length ? 'none' : 'block';
+      for (const t of items){
+        const div=document.createElement('div');
+        div.className='card';
+        div.innerHTML = `
+          <div class="pill" style="margin-bottom:10px">${stageName(t.stage)}</div>
+          <h3>${t.title}</h3>
+          <p>${t.summary}</p>
+          <div class="meta">${(t.tags||[]).map(x=>`<span class="tag">${x}</span>`).join('')}</div>
+          <div class="steps">
+            <div><strong>执行步骤</strong></div>
+            <ol>${(t.steps||[]).map(s=>`<li>${s}</li>`).join('')}</ol>
+            <div style="margin-top:8px"><strong>常见反制/注意</strong></div>
+            <ol>${(t.counters||[]).map(s=>`<li>${s}</li>`).join('')}</ol>
+          </div>
+        `;
+        $list.appendChild(div);
+      }
+    }
+
+    $q.addEventListener('input', render);
+    $stage.addEventListener('change', render);
+    render();
+  </script>
+</body>
+</html>

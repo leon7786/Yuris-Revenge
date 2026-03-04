@@ -142,18 +142,21 @@
       </div>
 
       <div id="sections" class="grid" style="margin-top:14px;">
-        <div class="card">
-          <h3 id="t-lib-title">资料库（建设中）</h3>
-          <p id="t-lib-desc">阵营、单位、建筑、科技树与关键机制：做成可检索的条目页。</p>
-        </div>
-        <div class="card">
-          <h3 id="t-meta-title">战术与对战（建设中）</h3>
-          <p id="t-meta-desc">开局到中后期：常见套路、反制思路、经典对局拆解。</p>
-        </div>
-        <div class="card">
-          <h3 id="t-mp-title">联机与工具（建设中）</h3>
-          <p id="t-mp-desc">联机工具、兼容性、掉线与黑屏等问题排查，给可复现步骤。</p>
-        </div>
+        <a class="card" href="./library.html" style="text-decoration:none; display:block;">
+          <h3 id="t-lib-title">资料库</h3>
+          <p id="t-lib-desc">阵营、单位、建筑、科技树与关键机制：做成可检索的条目页（支持关键词/标签筛选）。</p>
+          <div style="margin-top:12px;"><span class="pill" id="t-lib-pill">打开条目库</span></div>
+        </a>
+        <a class="card" href="./tactics.html" style="text-decoration:none; display:block;">
+          <h3 id="t-meta-title">战术与对战</h3>
+          <p id="t-meta-desc">从开局到中后期的常见套路、反制思路与经典对局拆解（按阵营/对局可检索）。</p>
+          <div style="margin-top:12px;"><span class="pill" id="t-meta-pill">打开战术库</span></div>
+        </a>
+        <a class="card" href="./multiplayer.html" style="text-decoration:none; display:block;">
+          <h3 id="t-mp-title">联机与工具</h3>
+          <p id="t-mp-desc">联机工具与兼容性建议；掉线/黑屏/卡启动等常见问题排查，提供可复现步骤。</p>
+          <div style="margin-top:12px;"><span class="pill" id="t-mp-pill">打开排障库</span></div>
+        </a>
       </div>
     </section>
 
@@ -247,12 +250,15 @@
         factionsDesc: "<strong>盟軍</strong>：全能體系、科技感強；<strong>蘇軍</strong>：裝甲火力兇猛；<strong>尤里</strong>：心靈控制與奇特科技。",
         whyTitle: "為什麼值得玩",
         whyDesc: "超過 80 種單位/建築、經典戰役與對戰節奏，至今仍有活躍玩家與 Mod 社群。",
-        libTitle: "資料庫（建設中）",
-        libDesc: "陣營、單位、建築、科技樹與關鍵機制：做成可檢索的條目頁。",
-        metaTitle: "戰術與對戰（建設中）",
-        metaDesc: "開局到中後期：常見套路、反制思路、經典對局拆解。",
-        mpTitle: "聯機與工具（建設中）",
-        mpDesc: "聯機工具、相容性、掉線與黑屏等問題排查，給可復現步驟。",
+        libTitle: "資料庫",
+        libDesc: "陣營、單位、建築、科技樹與關鍵機制：做成可檢索的條目頁（支援關鍵字/標籤篩選）。",
+        libPill: "打開條目庫",
+        metaTitle: "戰術與對戰",
+        metaDesc: "從開局到中後期的常見套路、反制思路與經典對局拆解（可按陣營/對局檢索）。",
+        metaPill: "打開戰術庫",
+        mpTitle: "聯機與工具",
+        mpDesc: "聯機工具與相容性建議；掉線/黑屏/卡啟動等常見問題排查，提供可復現步驟。",
+        mpPill: "打開排障庫",
         footer: "Yuri's Revenge Hub · 由 GitHub Pages 託管",
         footer2: "下載按鈕跳轉至：",
         footerCode: "github.com/leon7786/Yuris-Revenge/releases"
@@ -280,12 +286,15 @@
         factionsDesc: "<strong>盟军</strong>：全能体系、科技感强；<strong>苏军</strong>：装甲火力凶猛；<strong>尤里</strong>：心灵控制与奇特科技。",
         whyTitle: "为什么值得玩",
         whyDesc: "超过 80 种单位/建筑、经典战役与对战节奏，至今仍有活跃玩家与 Mod 社区。",
-        libTitle: "资料库（建设中）",
-        libDesc: "阵营、单位、建筑、科技树与关键机制：做成可检索的条目页。",
-        metaTitle: "战术与对战（建设中）",
-        metaDesc: "开局到中后期：常见套路、反制思路、经典对局拆解。",
-        mpTitle: "联机与工具（建设中）",
-        mpDesc: "联机工具、兼容性、掉线与黑屏等问题排查，给可复现步骤。",
+        libTitle: "资料库",
+        libDesc: "阵营、单位、建筑、科技树与关键机制：做成可检索的条目页（支持关键词/标签筛选）。",
+        libPill: "打开条目库",
+        metaTitle: "战术与对战",
+        metaDesc: "从开局到中后期的常见套路、反制思路与经典对局拆解（按阵营/对局可检索）。",
+        metaPill: "打开战术库",
+        mpTitle: "联机与工具",
+        mpDesc: "联机工具与相容性建议；掉线/黑屏/卡启动等常见问题排查，提供可复现步骤。",
+        mpPill: "打开排障库",
         footer: "Yuri's Revenge Hub · 由 GitHub Pages 托管",
         footer2: "下载按钮跳转至：",
         footerCode: "github.com/leon7786/Yuris-Revenge/releases"
@@ -313,12 +322,15 @@
         factionsDesc: "<strong>Allies</strong>: versatile tech; <strong>Soviets</strong>: heavy armor & firepower; <strong>Yuri</strong>: mind control and weird science.",
         whyTitle: "Why it still rules",
         whyDesc: "80+ units/buildings, iconic campaigns, and a long-lasting competitive + modding community.",
-        libTitle: "Library (WIP)",
-        libDesc: "Factions, units, buildings, tech tree, and key mechanics — structured pages.",
-        metaTitle: "Tactics (WIP)",
-        metaDesc: "Openings, mid-game plans, matchup notes, and counters.",
-        mpTitle: "Multiplayer & tools (WIP)",
-        mpDesc: "How to play online, compatibility fixes, and troubleshooting steps.",
+        libTitle: "Library",
+        libDesc: "Factions, units, buildings, tech tree, and key mechanics — structured, searchable entries.",
+        libPill: "Open library",
+        metaTitle: "Tactics & matchups",
+        metaDesc: "Openings to mid/late game plans, counters, and classic matchup breakdowns.",
+        metaPill: "Open tactics",
+        mpTitle: "Multiplayer & tools",
+        mpDesc: "Online play tools, compatibility notes, plus reproducible troubleshooting for disconnect/black screen issues.",
+        mpPill: "Open troubleshooting",
         footer: "Yuri's Revenge Hub · Hosted on GitHub Pages",
         footer2: "Download button goes to:",
         footerCode: "github.com/leon7786/Yuris-Revenge/releases"
@@ -359,10 +371,13 @@
 
       setText('t-lib-title', t.libTitle);
       setText('t-lib-desc', t.libDesc);
+      setText('t-lib-pill', t.libPill || 'Open');
       setText('t-meta-title', t.metaTitle);
       setText('t-meta-desc', t.metaDesc);
+      setText('t-meta-pill', t.metaPill || 'Open');
       setText('t-mp-title', t.mpTitle);
       setText('t-mp-desc', t.mpDesc);
+      setText('t-mp-pill', t.mpPill || 'Open');
 
     }
 
